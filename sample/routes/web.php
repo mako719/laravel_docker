@@ -36,4 +36,3 @@ Route::post('/login', [\App\Http\Controllers\LoginController::class, 'authentica
 Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
-
