@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('hello');
+    return view('home');
 });
 
 Route::get('/register', [\App\Http\Controllers\RegisterController::class, 'create'])
