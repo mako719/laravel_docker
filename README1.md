@@ -13,6 +13,7 @@ Laravelの特徴
 
 # 1-2 環境構築
 Laravei sail：Laravelが公式に提供している開発環境。Dockerを使用して簡単に環境構築ができる。
+
 laravel_dockerなど任意のディレクトリを用意して移動し、curlコマンドを利用してLaravel sailをダウンロードする。
 ```
 $ curl -s https://laravel.build/sample | bash
