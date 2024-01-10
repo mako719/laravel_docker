@@ -68,6 +68,25 @@ Viewのテンプレートファイルや、言語ファイル。
 ・vendor
 Composerによりダウンロードされる各種パッケージのディレクトリ。LaravelやSymfony本体のコードもそこに入る。
 
+ログイン機能
+・Auth::attempt() 引数にキーバリューの配列を受け取り、DBから一致するユーザーを見つける認証のメソッド。
+・$request->session()->regenerate(); セッションIDを手動で作成する。
+
+ログアウト機能
+・Auth::logout() ログアウトする。
+・$request->session()->invalidate(); セッションIDを再生成して、全てのデータを削除する。
+・$request->session()->regenerateToken(); 二重送信を防ぐ
+・Auth::check ログイン状態を確認できる
+
+イベント
+サービスプロバイダにリスナーを定義する。
+〇〇Listner.phpファイルでイベントの処理を実装する。イベントが発生した場合、handleメソッドが実行される。
+下記のようにコードにイベント生成処理を差し込む。
+```
+event(new Registered($user));
+```
+
+
 # 不明点
 [ ]Laravel sailと、Homesteadの違い
 
