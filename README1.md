@@ -88,7 +88,7 @@ event(new Registered($user));
 
 
 # 不明点
-[ ]Laravel sailと、Homesteadの違い
+[x]Laravel sailと、Homesteadの違い
 
 # 調べたこと
 ・Laravel sailとHomesteadの違い  
