@@ -100,7 +100,41 @@ class UserRegistPort extends FormRequest
 all, get, first, hasなどのメソッドを利用できる。  
 バリデーションメッセージをカスタマイズする場合は、フォームリクエストクラスでmessagesメソッド内に連想配列でメッセージを指定する。
 
+バリデーションルールのカスタマイズ  
+ルールの追加  
+　Validatorクラスのextendメソッドを使う。
+コントローラで使用する。
+```
+// 省略
+// ascii_alphaを追加
+$rules = [
+    'name' => ['required', 'max:20', 'ascii_alpha'],
+]
 
+$inputs = $request::all();
+
+// バリデーションルールにascii_alphaを追加
+Validator::extend('ascii_alpha', function ($attribute, $value, $parameters) {
+    // 半角アルファベットならOK
+    return preg_match('/^[a-zA-Z]+$/', $value);
+});
+
+$validator = Validator::make($inputs, $rules);
+```
+　このやり方は複数フォームで使用するケースには適さない。  
+汎用的に使用する場合は、独自のバリデータクラスを使用する方が良い。
+
+条件によるルールの追加  
+　特定の条件のみバリデーションを追加するには、Validatorクラスのsometimesメソッドを使う。
+```
+$validator->sometimes(
+    'age',
+    'integer|min:18',
+    function ($inputs) {
+        return $inputs->mailmagazine === 'allow';
+    }
+);
+```
 
 
 
