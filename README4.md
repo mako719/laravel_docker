@@ -156,19 +156,56 @@ Responseファサードも用意されており、返却するデータによっ
 　withメソッドで一時的なエラーメッセージを追加したりできる。  
 
 リソースクラスを組み合わせたREST APIレスポンスパターン  
-　
+　書籍を元に実際に実装済み。
+コマンド例
+```
+php artisan make:resource CommentResource
+php artisan make:resource CommentResourceCollection
+```
 
 
 
 # 4-4 ミドルウェア
+Laravelにおけるミドルウェアとは  
+　コントローラクラスの処理前後に位置し、HTTPリクエストのフィルタリングやHTTPレスポンスの変更を担う。  
+Laravelでは以下の3通りある。  
 
+・システム全体で使用するミドルウェア（グローバルミドルウェア）  
+・特定のルートに対して適用するミドルウェア（ルートミドルウェア）  
+・コントローラクラスのコンストラクタで指定するミドルウェア（コンストラクタ内ミドルウェア）
 
+HTTPリクエストが来たら以下の図の順でミドルウェアを通り、HTTPレスポンスを返す。  
+https://www.google.com/url?sa%253Di%2526url%253Dhttps%253A%252F%252Fstorehouse-techhack.com%252Flarval-middleware%252F%2526psig%253DAOvVaw3orx3sGjRfSxEr_KQ6pJtL%2526ust%253D1705313535340000%2526source%253Dimages%2526cd%253Dvfe%2526opi%253D89978449%2526ved%253D0CBIQjRxqFwoTCOiXxJbS3IMDFQAAAAAdAAAAABAU
+
+デフォルトで用意されているミドルウェア  
+App\Http\kernel.phpクラスで用意されている。  
+
+独自のミドルウェアの実装  
+　リクエストヘッダとレスポンスヘッダのログを書き出すミドルウェアを実装済み（グローバルミドルウェア）。
+コマンド例
 ```
+php artisan make:middleware HeaderDumper
+```
+
+作成したミドルウェアはApp\Http\Kernelクラスで定義する。  
+プロパティ  
+・$middleware  
+　グローバルミドルウェアを定義  
+・$middlewareGroups  
+　複数のミドルウェアをまとめて扱いたい場合  
+・$routeMiddleware  
+　特定のルート、コントローラに適用したい場合
+
+・webグループ  
+　routes\web.phpを通るものに適用される  
+・apiグループ  
+　routes\api.phpを通るものに適用される
 
 
 # 不明点
 - [ ] HATEOASとは
 - [ ] sprintf
+- [ ] リソースコレクションについてもう少し詳しい理解（必要な場面は？）
 
 # 調べたこと
 
