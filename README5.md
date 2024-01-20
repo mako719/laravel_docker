@@ -92,7 +92,7 @@ echo $book->detail->isbn;
 　一対他の関係  
 　Author（1）とBook（他）の場合  
 Authorから書籍名を取得する例
-　```
+```
 $author = \App\Models\Author::find(1);
 
 foreach ($author->books as $book) {
