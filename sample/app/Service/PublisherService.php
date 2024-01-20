@@ -2,27 +2,28 @@
 
 namespace App\Service;
 
-use App\DataProvider\Eloquent\publisher;
+use App\DataProvider\PublisherRepositoryInterface;
+use App\Domain\Entity\Publisher;
 
 class publisherService
 {
+    private $publisher;
+
+    public function __construct(PublisherRepositoryInterface $publisher)
+    {
+        $this->publisher = $publisher;
+    }
+
     public function exists(string $name): bool
     {
-        $count = Publisher::whereName($name)->count();
-        if ($count > 0) {
-            return true;
+        if (!$this->publisher->findByName($name)) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public function store(string $name, string $address): int
     {
-        $publisher = Publisher::create(
-            [
-                'name' => $name,
-                'address' => $address,
-            ]
-        );
-        return (int)$publisher->id;
+        return $this->publisher->store(new Publisher(null, $name, $address));
     }
 }
