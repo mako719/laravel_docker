@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\BlowfishEncrypter;
+use App\Domain\Repository\PublisherRepository;
 use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -14,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(
+            \App\DataProvider\PublisherRepositoryInterface::class,
+            \App\Domain\Repository\PublisherRepository::class
+        );
         $this->app->singleton(
             'encrypter',
             function ($app) {
