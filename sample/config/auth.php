@@ -40,6 +40,20 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            // キャッシュ併用認証（6-1）
+            // 'driver' => 'token',
+            // 'provider' => 'user_token',
+            // // URLクエリパラメータをapi_tokenからtokenへ変更
+            // 'input_key' => 't',
+            // // データベースなどで利用するカラム名をapi_tokenからtokenへ変更
+            // 'storage_key' => 'token',
+            // // hashを有効にするとデータベースなどへの問い合わせにsha256でハッシュ化をされたトークンを利用
+            // 'hash' => true,
+            'driver' => 'token',
+            'provider' => 'user_token',
+            'hash' => false,
+        ]
     ],
 
     /*
@@ -60,10 +74,13 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'cache_eloquent',
-            'model' => App\Models\User::class,
-        ],
+        // 'users' => [
+        //     'driver' => 'cache_eloquent',
+        //     'model' => App\Models\User::class,
+        // ],
+        'user_token' => [
+            'driver' => 'user_token',
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

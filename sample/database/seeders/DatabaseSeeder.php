@@ -15,5 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AuthorsTableSeeder::class);
         Publisher::factory(50)->create();
+
+        $this->call(
+            [
+                UserSeeder::class
+            ]
+        );
     }
 }
