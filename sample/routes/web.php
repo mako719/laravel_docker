@@ -1,6 +1,8 @@
 <?php
 
+use App\Events\PublishProcessor;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $view = view('welcome');
+    // Dispatcherクラス経由でEventを実行する場合
+    Event::dispatch(new PublishProcessor(706));
+    return $view;
 });
 
 Route::get('/home', function () {
