@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\BlowfishEncrypter;
 use App\Domain\Repository\PublisherRepository;
+use Knp\Snappy\Pdf;
 use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -27,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
                 return new Blowfishencrypter($this->parseKey($config));
             }
         );
+
+        // メソッドインジェクション、コンストラクタインジェクションで
+        // 利用するクラスにオブジェクトが渡される。
+        $this->app->bind(Pdf::class, function () {
+            return new Pdf('usr/bin/wkhtmltopdf');
+        });
     }
 
     protected function parseKey(array $config)
