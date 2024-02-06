@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use Knp\Snappy\PDF;
+use Knp\Snappy\Pdf;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,7 +27,7 @@ class PdfGenerator implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(PDF $pdf): void
+    public function handle(Pdf $pdf): void
     {
         $pdf->generateFromHtml(
             '<h1>Laravel</h><p>Sample PDF Output.</p>', $this->path

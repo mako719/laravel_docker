@@ -43,3 +43,5 @@ Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])
     ->name('logout');
 
 Route::get('/payload', \App\Http\Controllers\ArticlePayloadAction::class);
+
+Route::get('/pdf', \App\Http\Controllers\PdfGeneratorAction::class);
