@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         // メソッドインジェクション、コンストラクタインジェクションで
         // 利用するクラスにオブジェクトが渡される。
         $this->app->bind(Pdf::class, function () {
-            return new Pdf('usr/bin/wkhtmltopdf');
+            return new Pdf('/usr/local/bin/wkhtmltopdf');
         });
     }
 
