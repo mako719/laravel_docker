@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Events\PublishProcessor;
+use App\Events\ReviewRegistered;
 use App\Listeners\MessageQueueSubscriber;
 use App\Listeners\MessageSubscriber;
+use App\Listeners\ReviewIndexCreator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
             MessageSubscriber::class,
         MessageQueueSubscriber::class,
         ],
+        ReviewRegistered::class => [
+            ReviewIndexCreator::class,
+        ]
     ];
 
     /**
