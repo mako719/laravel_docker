@@ -20,6 +20,19 @@ Artisan::command('hello:closure', function () {
 $ php artisan hello:closure
 ```
 
+クラスによるCommand作成  
+ make:commandで雛形を作成する。
+```
+$ php artisan make:command HelloCommand
+```
+クラスに記述する内容例。  
+handleメソッドに処理を記述する。
+```
+// コマンド名を指定
+protected $signature = 'hello:class';
+// コマンドの説明を指定
+protected $description = 'サンプルコマンド（クラス）';
+```
 
 # 8-2 Commandの実装
 
