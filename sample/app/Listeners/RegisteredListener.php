@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Listners;
+namespace App\Listeners;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Mail\Mailer;
 use App\Models\User;
 
-class registeredListener
+class RegisteredListener
 {
     private $mailer;
     private $eloquent;

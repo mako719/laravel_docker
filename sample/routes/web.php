@@ -1,6 +1,8 @@
 <?php
 
+use App\Events\PublishProcessor;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $view = view('welcome');
+    // Dispatcherクラス経由でEventを実行する場合
+    Event::dispatch(new PublishProcessor(706));
+    return $view;
 });
 
 Route::get('/home', function () {
@@ -38,3 +43,5 @@ Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])
     ->name('logout');
 
 Route::get('/payload', \App\Http\Controllers\ArticlePayloadAction::class);
+
+Route::get('/pdf', \App\Http\Controllers\PdfGeneratorAction::class);

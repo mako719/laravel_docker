@@ -19,3 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/publishers', [App\Http\Controllers\publisherAction::class, 'create']);
+
+Route::post('/review', App\Http\Controllers\Review\RegisterAction::class);

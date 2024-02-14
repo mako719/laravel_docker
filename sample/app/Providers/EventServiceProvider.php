@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\PublishProcessor;
+use App\Events\ReviewRegistered;
+use App\Listeners\MessageQueueSubscriber;
+use App\Listeners\MessageSubscriber;
+use App\Listeners\ReviewIndexCreator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,8 +22,16 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             // SendEmailVerificationNotification::class,
-            'App\Listners\registeredListener',
+            'App\Listeners\RegisteredListener',
         ],
+        // デフォルトで用意されているlistenプロパティでイベントの登録をする場合
+        PublishProcessor::class => [
+            MessageSubscriber::class,
+        MessageQueueSubscriber::class,
+        ],
+        ReviewRegistered::class => [
+            ReviewIndexCreator::class,
+        ]
     ];
 
     /**
@@ -26,7 +39,18 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        parent::boot();
+        // Facadeを使用した例
+        // Event::listen(
+        //     PublishProcessor::class,
+        //     MessageSubscriber::class,
+        // );
+
+        // フレームワークのDIコンテナにアクセスした場合
+        // $this->app['events']->listen(
+        //     PublishProcessor::class,
+        //     MessageSubscriber::class
+        // );
     }
 
     /**
