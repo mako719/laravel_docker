@@ -43,6 +43,9 @@ protected $signature = 'hello:class {name?}';               // 引数省略可�
 protected $signature = 'hello:class {name=default}';        // デフォルト値指定
 protected $signature = 'hello:class {name*}';               // 引数を配列として取得
 protected $signature = 'hello:class {name:description}';    // 説明を追加できる
+
+// 引数はhandle()内で以下のように取得
+$name = $this->argument('name');
 ```
 
 　オプション引数を指定することもできる。  
@@ -55,6 +58,9 @@ protected $signature = 'hello:class {--switch=default}';       // 引数デフ�
 protected $signature = 'hello:class {--switch=*}';             // 引数を配列として取得
 protected $signature = 'hello:class {--switch:description}';   // 説明
 protected $signature = 'hello:class {--S|--switch}';           // ショートカットオプション追加可能
+
+// 引数はhandle()内で以下のように取得
+$switch = $this->option('switch');
 ```
 
 Commandからの出力  
@@ -88,7 +94,15 @@ Route::get('/no_args_di, function (Kernel $artisan) {
 ```
 
 # 8-2 Commandの実装
-　
+　今回の実装において、ユースケースとサービスクラスの分離を実現している。  
+詳しくは、ユースケースクラスExportOrdersUseCaseにて実処理を、ExportOrdersServiceクラスでデータベースから値を読み取る処理を担っている。  
+
+　処理ごとのクラスを分離する狙いは、各クラスの役割を明確にし、それぞれ定められた役割のみを担うようにするためである。  
+各々の役割が明確で独立したクラスは再利用性が高まるので、別の箇所からの利用が容易になる。  
+　また、独立したクラスでは、テストコードの記述も容易になる。  
+Laravelではコンソールアプリケーションをテストできるが、ユースケースクラスはその仕組みを使わなくても単体でテスト可能となる（コンソールアプリケーションに限らず）。
+
+
 
 
 # 8-3 バッチ処理の実装
