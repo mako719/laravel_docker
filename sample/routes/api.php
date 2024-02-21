@@ -19,3 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/publishers', [App\Http\Controllers\publisherAction::class, 'create']);
+
+// バッチ処理仮受信API
+Route::post('/import-orders', function (Request $request) {
+    $json = $request->getContent();
+    file_put_contents('/tmp/orders', $json);
+
+    return response('ok');
+});
