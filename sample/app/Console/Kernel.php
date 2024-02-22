@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\SampleCommand;
+use App\Console\Commands\SendOrdersCommand;
+use Carbon\CarbonImmutable;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +15,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command(SampleCommand::class)
+            ->description('サンプルタスク')
+            ->everyMinute();
+
+        $schedule->command(
+            SendOrdersCommand::class,
+            [CarbonImmutable::yesterday()->format('Ymd')]
+        )
+        ->dailyAt('05:00')
+        ->description('購入情報の送信')
+        ->withoutOverlapping();
     }
 
     /**
