@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\BlowfishEncrypter;
 use App\Domain\Repository\PublisherRepository;
+use Fluent\Logger\FluentLogger;
 use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -27,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
                 return new Blowfishencrypter($this->parseKey($config));
             }
         );
+
+        // Fluentdサーバへのコネクションを再利用するため、Fluent\Logger\FluentLoggerクラスをシングルトンでサービスプロバイダへ登録
+        $this->app->singleton(FluentLogger::class, function () {
+            // 実際に利用する場合は.encファイルなどでサーバのアドレスとportを指定
+            return new FluentLogger('localhost', 24224);
+        });
     }
 
     protected function parseKey(array $config)

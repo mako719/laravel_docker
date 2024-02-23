@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Fluent\Logger\FluentLogger;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +29,26 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function report(Throwable $exception)
+    {
+        // Illemniate\Foundation\Exceptions\Handlerクラスのreportメソッドを実行
+        Parent::report($exception);
+        $fluentLogger = $this->container->make(FluentLogger::class);
+        $fluentLogger->post('report', ['error' => $exception->getMessage()]);
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        // 送出されたExceptionクラスを継承したインスタンスのうち特定の例外のみ処理を変更
+        if ($exception instanceof QueryException) {
+            // カスタムヘッダを利用してエラーレスポンス、ステータスコード500を返却
+            return new Response('', Response::HTTP_INTERNAL_SERVER_ERROR, [
+                'X-App-Message' => 'An error occurred.'
+            ]);
+        }
+
+        return parent::render($request, $exception);
     }
 }
