@@ -47,10 +47,46 @@ Fluentdを使って複数のアプリケーションエラーを収集するケ�
 複雑化を防ぐため、Illuminate\Contracts\Support\Responsableインターフェースを実装した、例外クラスとレスポンスを関連づける方法が用意されている。  
 Bladeテンプレートと例外処理、APIレスポンスと例外処理を結びつける方法がある。実装方法はApp\Exceptions\AppException.php、UserResourceException.phpを参照。
 
-
 # 10-2 ログ活用パターン
+　障害検知や障害の原因究明、データ分析での活用など、ログには様々な利用用途があるため、正しいログ生成が重要になる。  
+ログに関する操作はLogファサード経由、亜m田はPsr\Log\LoggerInterfaceを実装しているたね、インターでーすをコンテナ経由で利用したり、loggerヘルパを利用できる。
+
+ログ出力設定  
+　single、daily、syslog、errorlogが標準で用意されているほか、Laravel8からは複数のログ出力を同時に行うstack、Slackへ通知を行うslackが追加され、さらにログドライバを追加可能なcustomも選択できる。  
+ログの設定はconfig/app.phpのlogとlog_levelキーを利用する。
+
+single  
+　標準の設定では、ログはstorage/log/laravel.logファイルに出力される。  
+ログ出力が多いサービスやアクセスが多いサービスなどでは、サーバのストレージを圧迫させてしまい、容量不足などの障害の原因となる。
+
+daily  
+　日単位でログファイルを作成し、指定期間分のログファイルを保持する。（デフォルトでは14日間）
+
+syslog  
+　ログをsyslogに出力する。標準的なLinux環境でのsyslogの出力先は/var/log/messagesになる。
+
+errorlog  
+　errorlogを指定すると、PHPのerrorlog関数でログ出力を行う。
+
+stack  
+　Laravelが利用しているMonologの機能を用いて、config/logging.phpのchannels関数で複数のドライバを指定することで同時に利用できる。
+
+slack  
+　Slackの指定チャンネルへログ内容を通知する。デフォルトではcritical以上でなければ通知されない。
+
+papertrail  
+　ログ収集などの機能を提供しているPapertrailへのログ送信を行う。  
+事前に登録などの手続きが必要になる。
+
+stderr  
+　標準エラー出力を行う。  
+実際のアプリケーション運用でDockerなどを用いたコンテナ環境を利用する場合は、papertrailなどのログ収集サービスやログ収集サーバへの送信が必須となるので、stderrなどと組み合わせて利用するのが一般的となっている。
+
+
 
 # 不明点
-- [ ] 
+- [ ] syslog、rsyslogとは  
+- [ ] Papertrailとは  
+- [ ] Monologとは
 
 # 調べたこと
