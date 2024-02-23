@@ -44,9 +44,8 @@ Fluentdを使って複数のアプリケーションエラーを収集するケ�
 
 エラーハンドリングパターン  
 　フレームワークで用意されている例外クラスではなく、アプリケーション固有の例外クラスが多くなると、App\Exceptions\Handlerクラスのrenderメソッド内でエラーの分岐処理が多くなり、レスポンスの処理が複雑になりがちである。  
-複雑化を防ぐため、Illuminate\Contracts\Support\Responsableインターフェースを実装した、例外クラスとレスポンスを関連づける方法が用意されている。
-
-
+複雑化を防ぐため、Illuminate\Contracts\Support\Responsableインターフェースを実装した、例外クラスとレスポンスを関連づける方法が用意されている。  
+Bladeテンプレートと例外処理、APIレスポンスと例外処理を結びつける方法がある。実装方法はApp\Exceptions\AppException.php、UserResourceException.phpを参照。
 
 
 # 10-2 ログ活用パターン
