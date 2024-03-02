@@ -220,7 +220,9 @@ AuthServiceProviderで記述した内容の理解
 ・registerPolicies()　このメソッドの中身を見てみると、ポリシーをforeachで回している。Gate::policy($model, $policy);が中の処理。  
 GateとPolicy→認可に関するもの（アクセス制限）。Policyは特定のモデルに対して行うアクセス制限（ブログの投稿、編集など）、Gateはモデルやリソースに紐づかないアクションも認可できる（管理画面へのアクセスなど）。
 
-サービスコンテナへのバインドと混同しがちだが、Auth機能にバインドするイメージと考えるとわかりやすい。
+サービスコンテナへのバインドと混同しがちだが、Auth機能にバインドするイメージと考えるとわかりやすい。  
+ドライバとなるクラス（CacheUserProviderクラス）を'cache_eloquent'として登録する。  
+この'cache_eloquent'をconfig/auth.phpに登録する。
 
 すでにレコードがあるテーブルにnull許容しないユニーク制約をつけたカラムを追加する方法  
 https://noauto-nolife.com/post/laravel-notnull-exception/
