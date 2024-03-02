@@ -23,7 +23,7 @@ class userAction extends Controller
 
         return new JsonResponse([
             'id' => $user->getAuthIdentifier(),
-            'name' => $user->name
+            'name' => $user->getName()
         ]);
     }
 }
