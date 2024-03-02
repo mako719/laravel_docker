@@ -5,10 +5,14 @@
 6-4 OAuthクライアントによる認証・認可  
 6-5 認可処理
 
+認証機能参考資料  
+https://zenn.dev/rewrite3261/articles/f102ff26f620c7
+
 # 6-1 セッションを利用した認証
 　認証とは、アプリケーションの機能を提供するため、利用するユーザーを照合して確認する処理。  
 LaravelにはBasic認証、デー他ベースを利用した認証、認証機能を利用したログイン・ログアウト、パスワードリマインド、パスワードリセットなどがある。  
-　だが、必ずしも開発要件に合致するとは限らず、拡張が必要になるケースがしばしばある。
+　だが、必ずしも開発要件に合致するとは限らず、拡張が必要になるケースがしばしばある。  
+用意されているクラスを継承し、カスタマイズして独自の認証機能を作成するイメージ。
 
 認証処理の流れ  
 Illuminate\Contracts\Auth\Factory  
@@ -216,10 +220,12 @@ AuthServiceProviderで記述した内容の理解
 ・registerPolicies()　このメソッドの中身を見てみると、ポリシーをforeachで回している。Gate::policy($model, $policy);が中の処理。  
 GateとPolicy→認可に関するもの（アクセス制限）。Policyは特定のモデルに対して行うアクセス制限（ブログの投稿、編集など）、Gateはモデルやリソースに紐づかないアクションも認可できる（管理画面へのアクセスなど）。
 
-すでにレコードがあるテーブルにnull許容しないユニーク制約をつけたカラムを追加する方法
+サービスコンテナへのバインドと混同しがちだが、Auth機能にバインドするイメージと考えるとわかりやすい。
+
+すでにレコードがあるテーブルにnull許容しないユニーク制約をつけたカラムを追加する方法  
 https://noauto-nolife.com/post/laravel-notnull-exception/
 
-userCurrentOnUpdate()（Migration）
+userCurrentOnUpdate()（Migration）  
 MySQLのON UPDATE CURRENT_TIMETAMP句は、タイムスタンプが自動で更新されるようになる。
 
 FK（外部キー制約）の付け方（Migration）
