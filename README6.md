@@ -187,7 +187,14 @@ Bladeによる認可処理
 @endcan
 ```
 
-View Composer
+View Composer  
+　テンプレート描画で幾つかのロジックが必要になる場合、View Composerを利用することでロジックと描画を切り分けることができる。  
+Composerクラスを作成してロジックを定義、サービスプロバイダに利用したいテンプレート名とComposerクラスを定義する。
+
+Bladeファイル側では以下のように呼び出す。
+```
+@yield('authorized')
+```
 
 
 
