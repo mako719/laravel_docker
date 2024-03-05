@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Jobs\PdfGenerator;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Facades\Log;
 
-class PdfGeneratorAction
+class PdfGeneratorAction extends Controller
 {
     private $dispatcher;
 
