@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "barryvdh/laravel-snappy": "^1.0",
         "elasticsearch/elasticsearch": "^8.12",
         "guzzlehttp/guzzle": "^7.2",
         "h4cc/wkhtmltoimage-i386": "0.12.x",
