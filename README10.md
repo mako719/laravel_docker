@@ -83,11 +83,10 @@ stderr
 実際のアプリケーション運用でDockerなどを用いたコンテナ環境を利用する場合は、papertrailなどのログ収集サービスやログ収集サーバへの送信が必須となるので、stderrなどと組み合わせて利用するのが一般的となっている。
 
 
-
 # 不明点
 - [x] syslog、rsyslogとは  
 - [x] Papertrailとは  
-- [ ] Monologとは
+- [x] Monologとは
 
 # 調べたこと
 syslog、rsyslogとは  
@@ -97,4 +96,6 @@ Papertrailとは
 　PapertrailはLinuxサーバやWebアプリケーション等の様々なログをオンラインで集約し、閲覧・検索することができるサービスです。rsyslogやsyslog-ng等のsyslogデーモンに数行追記するだけで導入できる
 
 Monologとは  
-　
+　monologはログを取得するためのPHPライブラリ。いつも使っているログと同じような使い方。  
+vendor/monolog/monolog/src/Monolog/Logger.php
+
