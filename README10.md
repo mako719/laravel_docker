@@ -9,7 +9,7 @@
 開発環境ではtrueで良い。
 
 エラーの種別  
-　Laravelには補足しきれなかった例外を処理するためにApp\Exceptions\Handlerクラスがあ用意されている。  
+　Laravelには補足しきれなかった例外を処理するためにApp\Exceptions\Handlerクラスが用意されている。  
 アプリケーションで発生する例外は大別すると以下の通り。  
 ・システム例外  
 　処理を実行できない例外。アプリケーションそのものに由来するバグ、依存ライブラリのバグ、データベースやキャッシュサーバーなどのハードウェア・ミドルウェアのよる障害、ネットワーク障害など。
@@ -85,8 +85,16 @@ stderr
 
 
 # 不明点
-- [ ] syslog、rsyslogとは  
-- [ ] Papertrailとは  
+- [x] syslog、rsyslogとは  
+- [x] Papertrailとは  
 - [ ] Monologとは
 
 # 調べたこと
+syslog、rsyslogとは  
+　UNIX系OSにおけるシステムログの記録を担当する。
+
+Papertrailとは  
+　PapertrailはLinuxサーバやWebアプリケーション等の様々なログをオンラインで集約し、閲覧・検索することができるサービスです。rsyslogやsyslog-ng等のsyslogデーモンに数行追記するだけで導入できる
+
+Monologとは  
+　
